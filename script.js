@@ -50,7 +50,7 @@ function switchTab(tabId) {
   document.getElementById(`module-${tabId}`).classList.remove("hidden");
   const activeBtn = document.getElementById(`tab-btn-${tabId}`);
   activeBtn.className =
-    "tab-btn px-3 py-2 rounded border border-cyber-cyan bg-cyber-cyan/20 text-cyber-cyan shadow-[0_0_10px_rgba(0,243,255,0.2)] transition flex items-center gap-2";
+    "tab-btn px-3 py-2 rounded border border-cyber-cyan bg-cyber-cyan/20 text-cyber-cyan shadow-tab-active transition flex items-center gap-2";
 
   if (tabId === "graph") {
     setTimeout(plotFunctionAndTable, 50);

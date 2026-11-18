@@ -29,7 +29,7 @@ function createMatrixInputsHTML(name, rows, cols) {
   let html = `<div class="grid gap-1.5" style="grid-template-columns: repeat(${cols}, minmax(0, 1fr));">`;
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-      html += `<input type="number" id="mat${name}_${i}_${j}" value="${i === j ? 1 : 0}" step="any" class="bg-cyber-bg border border-cyber-cardBorder rounded p-1.5 text-xs text-center font-mono text-cyber-text focus:border-cyber-cyan">`;
+      html += `<input type="number" id="mat${name}_${i}_${j}" aria-label="Matriz ${name}, linha ${i + 1}, coluna ${j + 1}" value="${i === j ? 1 : 0}" step="any" class="bg-cyber-bg border border-cyber-cardBorder rounded p-1.5 text-xs text-center font-mono text-cyber-text focus:border-cyber-cyan">`;
     }
   }
   html += `</div>`;
@@ -119,7 +119,13 @@ function matrixOperation(op) {
     } else if (op === "solve") {
       if (rA !== cA || rB !== rA || cB !== 1)
         throw Error("Ax=B requer A quadrada e B com uma coluna");
-      displayMatrixResult(MathEngine.math.lusolve(A, B));
+      let solution;
+      try {
+        solution = MathEngine.math.lusolve(A, B);
+      } catch {
+        throw Error("Sistema sem solução única: matriz A singular");
+      }
+      displayMatrixResult(solution);
     } else if (op === "detA") {
       if (rA !== cA) throw new Error("Matriz A precisa ser quadrada");
       displayMatrixResult(matrixDeterminant(A));

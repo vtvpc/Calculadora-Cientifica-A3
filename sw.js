@@ -1,4 +1,4 @@
-const CACHE = "cybercalc-a3-v1";
+const CACHE = "cybercalc-a3-v2";
 const FILES = [
   "./",
   "./index.html",
@@ -7,6 +7,7 @@ const FILES = [
   "./math-engine.js",
   "./storage.js",
   "./numerical.js",
+  "./graph-scale.js",
   "./graphs.js",
   "./matrices.js",
   "./combinatorics.js",

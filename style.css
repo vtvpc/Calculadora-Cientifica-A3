@@ -1,11 +1,56 @@
-/* --- Light & Dark Theme CSS Variables --- */
+/* --- Light & Dark Theme CSS Variables ---
+   Toda a paleta fica aqui. O tema Dark mantém exatamente o neon original;
+   o tema Light usa tons escuros dos mesmos matizes (contraste WCAG AA)
+   e troca os brilhos neon por sombras discretas. */
 :root {
   --cyber-bg: #f1f5f9;
   --cyber-card: #ffffff;
   --cyber-cardBorder: #cbd5e1;
   --cyber-text: #0f172a;
-  --cyber-dimText: #64748b;
+  --cyber-dimText: #475569;
   --scrollbar-track: #f1f5f9;
+  --scrollbar-thumb: #94a3b8;
+
+  /* Canais RGB usados pelo Tailwind (permitem opacidade: text-cyber-cyan/20). */
+  --cyber-cyan-rgb: 7 89 133; /* #075985 */
+  --cyber-magenta-rgb: 157 23 77; /* #9d174d */
+  --cyber-green-rgb: 6 95 70; /* #065f46 */
+  --cyber-red-rgb: 185 28 28; /* #b91c1c */
+  --cyber-amber: #b45309;
+  --cyber-op-text: #be185d;
+  --cyber-hud-label: #075985;
+
+  /* Brilhos: desativados no Light para não borrar o texto. */
+  --glow-cyan: none;
+  --glow-magenta: none;
+  --glow-green: none;
+  --glow-key-hover: none;
+  --glow-op-hover: none;
+  --shadow-key-hover: 0 1px 4px rgba(15, 23, 42, 0.12);
+  --shadow-op-hover: 0 1px 4px rgba(15, 23, 42, 0.12);
+  --shadow-neon-cyan: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow-neon-cyan-strong: 0 0 0 2px rgba(3, 105, 161, 0.18);
+  --shadow-tab-active: 0 0 0 1px rgba(3, 105, 161, 0.15);
+  --shadow-focus-cyan: 0 0 0 2px rgba(3, 105, 161, 0.25);
+  --shadow-btn-red: 0 1px 4px rgba(127, 29, 29, 0.35);
+  --shadow-btn-red-hover: 0 2px 8px rgba(127, 29, 29, 0.45);
+  --body-glow-cyan: rgba(3, 105, 161, 0.04);
+  --body-glow-magenta: rgba(190, 24, 93, 0.03);
+  --scanline-opacity: 0.08;
+
+  /* Gráfico (lido pelo canvas em graphs.js). */
+  --graph-bg: #f1f5f9;
+  --graph-grid: #e2e8f0;
+  --graph-grid-major: #cbd5e1;
+  --graph-axis: #0369a1;
+  --graph-axis-glow: 0;
+  --graph-label: #1e293b;
+  --graph-label-bg: rgba(241, 245, 249, 0.85);
+  --graph-curve-1: #be185d;
+  --graph-curve-2: #0369a1;
+  --graph-curve-3: #047857;
+  --graph-curve-4: #b45309;
+  --graph-curve-glow: 0;
 }
 
 .dark {
@@ -15,6 +60,47 @@
   --cyber-text: #e0e6f0;
   --cyber-dimText: #8a99ad;
   --scrollbar-track: #12161f;
+  --scrollbar-thumb: #283347;
+
+  --cyber-cyan-rgb: 0 243 255; /* #00f3ff */
+  --cyber-magenta-rgb: 255 0 127; /* #ff007f */
+  --cyber-green-rgb: 0 255 102; /* #00ff66 */
+  --cyber-red-rgb: 211 47 47; /* #d32f2f */
+  --cyber-amber: #f59e0b;
+  --cyber-op-text: #ff77c2;
+  --cyber-hud-label: rgba(0, 243, 255, 0.6);
+
+  --glow-cyan: 0 0 8px rgba(0, 243, 255, 0.6);
+  --glow-magenta: 0 0 8px rgba(255, 0, 127, 0.6);
+  --glow-green: 0 0 8px rgba(0, 255, 102, 0.6);
+  --glow-key-hover: 0 0 8px rgba(0, 243, 255, 0.6);
+  --glow-op-hover: 0 0 8px #ff007f;
+  --shadow-key-hover: 0 0 10px rgba(0, 243, 255, 0.3);
+  --shadow-op-hover: 0 0 12px rgba(255, 0, 127, 0.5);
+  --shadow-neon-cyan:
+    0 0 12px rgba(0, 243, 255, 0.15), inset 0 0 8px rgba(0, 243, 255, 0.05);
+  --shadow-neon-cyan-strong:
+    0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 10px rgba(0, 243, 255, 0.1);
+  --shadow-tab-active: 0 0 10px rgba(0, 243, 255, 0.2);
+  --shadow-focus-cyan: 0 0 10px rgba(0, 243, 255, 0.3);
+  --shadow-btn-red: 0 0 10px rgba(211, 47, 47, 0.5);
+  --shadow-btn-red-hover: 0 0 20px rgba(211, 47, 47, 0.9), 0 0 5px #ffffff;
+  --body-glow-cyan: rgba(0, 243, 255, 0.03);
+  --body-glow-magenta: rgba(255, 0, 127, 0.03);
+  --scanline-opacity: 0.3;
+
+  --graph-bg: #12161f;
+  --graph-grid: #1a2232;
+  --graph-grid-major: #1f293d;
+  --graph-axis: #00f3ff;
+  --graph-axis-glow: 6;
+  --graph-label: #b4c2d4;
+  --graph-label-bg: rgba(18, 22, 31, 0.8);
+  --graph-curve-1: #ff007f;
+  --graph-curve-2: #00f3ff;
+  --graph-curve-3: #00ff66;
+  --graph-curve-4: #f59e0b;
+  --graph-curve-glow: 10;
 }
 
 /* Custom Scrollbar */
@@ -26,12 +112,12 @@
   background: var(--scrollbar-track);
 }
 ::-webkit-scrollbar-thumb {
-  background: #283347;
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
-  border: 1px solid #00f3ff33;
+  border: 1px solid rgb(var(--cyber-cyan-rgb) / 0.2);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #00f3ff;
+  background: rgb(var(--cyber-cyan-rgb));
 }
 
 body {
@@ -40,12 +126,12 @@ body {
   background-image:
     radial-gradient(
       circle at 15% 15%,
-      rgba(0, 243, 255, 0.03) 0%,
+      var(--body-glow-cyan) 0%,
       transparent 40%
     ),
     radial-gradient(
       circle at 85% 85%,
-      rgba(255, 0, 127, 0.03) 0%,
+      var(--body-glow-magenta) 0%,
       transparent 40%
     ),
     linear-gradient(to right, rgba(100, 100, 100, 0.02) 1px, transparent 1px),
@@ -62,22 +148,18 @@ body {
 
 /* Cyberpunk Neon Glow Utility Classes */
 .neon-border-cyan {
-  border: 1px solid rgba(0, 243, 255, 0.4);
-  box-shadow:
-    0 0 12px rgba(0, 243, 255, 0.15),
-    inset 0 0 8px rgba(0, 243, 255, 0.05);
+  border: 1px solid rgb(var(--cyber-cyan-rgb) / 0.4);
+  box-shadow: var(--shadow-neon-cyan);
 }
 .neon-border-cyan:focus-within,
 .neon-border-cyan:hover {
-  border-color: #00f3ff;
-  box-shadow:
-    0 0 15px rgba(0, 243, 255, 0.3),
-    inset 0 0 10px rgba(0, 243, 255, 0.1);
+  border-color: rgb(var(--cyber-cyan-rgb));
+  box-shadow: var(--shadow-neon-cyan-strong);
 }
 
 .neon-border-red {
-  border: 1px solid rgba(211, 47, 47, 0.5);
-  box-shadow: 0 0 12px rgba(211, 47, 47, 0.25);
+  border: 1px solid rgb(var(--cyber-red-rgb) / 0.5);
+  box-shadow: 0 0 12px rgb(var(--cyber-red-rgb) / 0.25);
 }
 
 /* Glow buttons */
@@ -85,13 +167,11 @@ body {
   background: linear-gradient(135deg, #d32f2f 0%, #9a0007 100%);
   color: #ffffff;
   border: 1px solid #ff5f52;
-  box-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+  box-shadow: var(--shadow-btn-red);
   transition: all 0.2s ease;
 }
 .btn-neon-red:hover {
-  box-shadow:
-    0 0 20px rgba(211, 47, 47, 0.9),
-    0 0 5px #ffffff;
+  box-shadow: var(--shadow-btn-red-hover);
   transform: translateY(-1px);
 }
 .btn-neon-red:active {
@@ -107,37 +187,60 @@ body {
   transition: all 0.15s ease;
 }
 .btn-cyber-key:hover {
-  border-color: #00f3ff;
-  color: #00f3ff;
-  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
-  text-shadow: 0 0 8px rgba(0, 243, 255, 0.6);
+  border-color: rgb(var(--cyber-cyan-rgb));
+  color: rgb(var(--cyber-cyan-rgb));
+  box-shadow: var(--shadow-key-hover);
+  text-shadow: var(--glow-key-hover);
 }
 .btn-cyber-key:active {
-  background: rgba(0, 243, 255, 0.1);
+  background: rgb(var(--cyber-cyan-rgb) / 0.1);
   transform: scale(0.97);
 }
 
 .btn-cyber-op {
   background: var(--cyber-card);
-  border: 1px solid rgba(255, 0, 127, 0.3);
-  color: #ff77c2;
+  border: 1px solid rgb(var(--cyber-magenta-rgb) / 0.3);
+  color: var(--cyber-op-text);
   transition: all 0.15s ease;
 }
 .btn-cyber-op:hover {
-  border-color: #ff007f;
+  border-color: rgb(var(--cyber-magenta-rgb));
   color: var(--cyber-text);
-  box-shadow: 0 0 12px rgba(255, 0, 127, 0.5);
-  text-shadow: 0 0 8px #ff007f;
+  box-shadow: var(--shadow-op-hover);
+  text-shadow: var(--glow-op-hover);
+}
+
+/* Botões CE e apagar: âmbar original no Dark, âmbar escuro legível no Light. */
+.btn-amber {
+  color: var(--cyber-amber);
+}
+
+/* Operações matriciais com nomes completos: quebram linha em vez de cortar. */
+.matrix-op-btn {
+  min-height: 2.75rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.3;
+  text-align: center;
 }
 
 .text-glow-cyan {
-  text-shadow: 0 0 8px rgba(0, 243, 255, 0.6);
+  text-shadow: var(--glow-cyan);
 }
 .text-glow-magenta {
-  text-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
+  text-shadow: var(--glow-magenta);
 }
 .text-glow-green {
-  text-shadow: 0 0 8px rgba(0, 255, 102, 0.6);
+  text-shadow: var(--glow-green);
+}
+.shadow-tab-active {
+  box-shadow: var(--shadow-tab-active);
+}
+.focus-glow-cyan:focus {
+  box-shadow: var(--shadow-focus-cyan);
+}
+.hud-label {
+  color: var(--cyber-hud-label);
 }
 
 /* Scanline effect over displays */
@@ -157,7 +260,7 @@ body {
   background-size: 100% 4px;
   z-index: 10;
   pointer-events: none;
-  opacity: 0.3;
+  opacity: var(--scanline-opacity);
 }
 /* Additional controls inherit the existing Cyberpunk panels and palette. */
 .tool-input {
@@ -173,14 +276,14 @@ body {
   font: inherit;
 }
 .tool-input:focus {
-  outline: 1px solid #00f3ff;
+  outline: 1px solid rgb(var(--cyber-cyan-rgb));
 }
 .tab-content > div {
   min-width: 0;
 }
 button:focus-visible,
 summary:focus-visible {
-  outline: 2px solid #00f3ff;
+  outline: 2px solid rgb(var(--cyber-cyan-rgb));
   outline-offset: 2px;
 }
 #calculus-results-box,

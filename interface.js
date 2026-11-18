@@ -114,7 +114,7 @@ const catalog = [
   ["Programação", "AND / OR / XOR (32 bits)", "bitXor(5,3)"],
   ["Programação", "NOT (32 bits com sinal)", "bitNot(0)"],
   ["Programação", "Deslocamento (0 a 31)", "leftShift(1,8)"],
-  ["Programação", "Resto (sinal do dividendo)", "-10 mod 3"],
+  ["Programação", "Resto (mod matemático, sinal do divisor)", "-10 mod 3"],
   ["Unidades e física", "Comprimento", 'to(unit(1,"km"),"m")'],
   ["Unidades e física", "Massa", 'to(unit(1,"kg"),"g")'],
   ["Unidades e física", "Área", 'to(unit(1,"m^2"),"cm^2")'],

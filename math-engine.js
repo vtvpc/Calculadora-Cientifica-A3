@@ -156,6 +156,18 @@
     bitNot: (a) => ~a,
     leftShift: (a, b) => a << integer(b, 31),
     rightShift: (a, b) => a >> integer(b, 31),
+    // Listadas na allowlist, mas ausentes no math.js: implementadas aqui.
+    trunc: (x) => finite(m.fix(x)),
+    // polar(z) → [módulo, argumento em radianos]; rect(r, θ) → r·e^(iθ) (θ em radianos).
+    polar: (z) => {
+      const c = m.complex(z);
+      return [finite(m.abs(c)), finite(m.arg(c))];
+    },
+    rect: (r, theta) => {
+      if (typeof r !== "number" || typeof theta !== "number")
+        throw Error("rect requer módulo e ângulo reais");
+      return finite(m.complex({ r, phi: theta }));
+    },
   };
   functions.add("ln");
   // Row reduction with partial pivoting; values below 1e-12 are treated as zero.

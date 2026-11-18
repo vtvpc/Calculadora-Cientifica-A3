@@ -262,10 +262,11 @@ Capturas obtidas da aplicação em execução no Chromium, sem mockups ou imagen
 
 ## ✅ Testes e validação matemática
 
-Na revisão de **16/11/2026**, foram executados:
+Na revisão de **18/11/2026**, foram executados:
 
-- **26 testes Node aprovados**, cobrindo as 15 expressões obrigatórias, precedência, domínios, expressões maliciosas, complexos, funções personalizadas, matrizes, vetores, cálculo, estatística, probabilidade, finanças e conversões.
-- **26 testes de interface aprovados**: 13 cenários em Chromium e os mesmos 13 em Firefox. Incluem os seis módulos, exemplos reais do catálogo, teclado, memória, favoritos, exportações, temas, viewport móvel, armazenamento hostil/corrompido/bloqueado e recarga offline.
+- **36 testes Node aprovados**, cobrindo as 15 expressões obrigatórias, precedência, domínios, expressões maliciosas, complexos, funções personalizadas, matrizes, vetores, cálculo, estatística, probabilidade, finanças, conversões, a escala numérica dos eixos do gráfico e um inventário que exige um caso de teste para **cada uma das 100 funções** liberadas pelo motor.
+- **54 testes de interface aprovados**: 27 cenários em Chromium e os mesmos 27 em Firefox. Incluem os seis módulos, todas as operações matriciais (nomes completos sem cortes no desktop e no celular), numeração dos eixos com zoom/pan/reset/PNG e tela HiDPI, auditoria automática de contraste WCAG AA do tema Light em todas as abas, acessibilidade (nomes acessíveis e foco visível), entradas inválidas em todas as ferramentas, exemplos reais do catálogo, teclado, memória, favoritos, exportações, temas, viewport móvel, armazenamento hostil/corrompido/bloqueado e recarga offline.
+- Se a porta 8000 estiver ocupada, use `PORT=8124 npm run test:browser`.
 - Verificação de ausência de erros JavaScript inesperados e respostas HTTP de erro durante os cenários de interface.
 - Cálculos com ponto flutuante comparados por tolerância; resultados inteiros e estruturas comparados com seus valores esperados.
 

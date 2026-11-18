@@ -76,27 +76,73 @@ function exportGraph() {
   a.click();
 }
 
+function graphThemeColors() {
+  const css = getComputedStyle(document.documentElement);
+  const v = (name, fallback) => css.getPropertyValue(name).trim() || fallback;
+  return {
+    bg: v("--graph-bg", "#12161f"),
+    grid: v("--graph-grid-major", "#1f293d"),
+    axis: v("--graph-axis", "#00f3ff"),
+    axisGlow: Number(v("--graph-axis-glow", "6")),
+    label: v("--graph-label", "#b4c2d4"),
+    labelBg: v("--graph-label-bg", "rgba(18,22,31,0.8)"),
+    curves: [1, 2, 3, 4].map((i) => v(`--graph-curve-${i}`, "#ff007f")),
+    curveGlow: Number(v("--graph-curve-glow", "10")),
+  };
+}
+
+// Escolhe a densidade de marcas para que os rótulos nunca se sobreponham.
+function axisTicks(ctx, min, max, pixels, minGap, horizontal) {
+  let maxTicks = Math.max(2, Math.floor(pixels / minGap));
+  let t = GraphScale.ticks(min, max, maxTicks);
+  while (maxTicks > 2) {
+    const spacing = (t.step / (max - min)) * pixels;
+    const need = horizontal
+      ? Math.max(...t.labels.map((l) => ctx.measureText(l).width), 0) + 14
+      : 22;
+    if (spacing >= need) break;
+    maxTicks = Math.max(2, Math.floor(maxTicks / 2));
+    t = GraphScale.ticks(min, max, maxTicks);
+  }
+  return t;
+}
+
+function drawTickLabel(ctx, text, x, y, align, baseline, colors) {
+  ctx.textAlign = align;
+  ctx.textBaseline = baseline;
+  const w = ctx.measureText(text).width;
+  const left = align === "right" ? x - w : align === "center" ? x - w / 2 : x;
+  const top = baseline === "top" ? y : baseline === "bottom" ? y - 13 : y - 6.5;
+  ctx.fillStyle = colors.labelBg;
+  ctx.fillRect(left - 2, top - 1, w + 4, 14);
+  ctx.fillStyle = colors.label;
+  ctx.fillText(text, x, y);
+}
+
 function renderCanvasGraph() {
   const canvas = document.getElementById("function-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   if (!ctx || !graphState.functions) return;
 
-  canvas.width = canvas.parentElement.clientWidth;
-  canvas.height = canvas.parentElement.clientHeight || 380;
+  // Dimensões em pixels CSS; o buffer acompanha o devicePixelRatio (telas HiDPI).
+  const W = canvas.parentElement.clientWidth || 300;
+  const H = canvas.parentElement.clientHeight || 380;
+  const dpr = Math.min(window.devicePixelRatio || 1, 3);
+  canvas.width = Math.round(W * dpr);
+  canvas.height = Math.round(H * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const colors = graphThemeColors();
+  // Fundo opaco do tema: o PNG exportado fica legível fora da página.
+  ctx.fillStyle = colors.bg;
+  ctx.fillRect(0, 0, W, H);
 
-  const isDark = document.documentElement.classList.contains("dark");
-  const gridColor = isDark ? "#1f293d" : "#cbd5e1";
-  const axisColor = "#00f3ff";
-  const plotColor = "#ff007f";
-
-  const { xmin, xmax, expr } = graphState;
+  const { xmin, xmax } = graphState;
 
   const curves = [];
   const points = [];
-  const numSamples = canvas.width;
+  const numSamples = Math.max(200, Math.round(W));
   let computedYmin = Infinity,
     computedYmax = -Infinity;
 
@@ -130,52 +176,57 @@ function renderCanvasGraph() {
   ymin -= yPadding;
   ymax += yPadding;
 
-  const mapX = (x) => ((x - xmin) / (xmax - xmin)) * canvas.width;
-  const mapY = (y) =>
-    canvas.height - ((y - ymin) / (ymax - ymin)) * canvas.height;
+  const mapX = (x) => ((x - xmin) / (xmax - xmin)) * W;
+  const mapY = (y) => H - ((y - ymin) / (ymax - ymin)) * H;
 
-  // Neon Grid
-  ctx.strokeStyle = gridColor;
+  ctx.font = '11px "JetBrains Mono", Consolas, monospace';
+  const xt = axisTicks(ctx, xmin, xmax, W, 70, true);
+  const yt = axisTicks(ctx, ymin, ymax, H, 40, false);
+
+  // Grade alinhada às marcas numeradas
+  ctx.strokeStyle = colors.grid;
   ctx.lineWidth = 1;
-  const gridStep = 10 ** Math.floor(Math.log10(xmax - xmin)) / 5;
-  for (let index = 0; index <= 60; index++) {
-    const x = Math.ceil(xmin / gridStep) * gridStep + index * gridStep;
-    if (x > xmax) break;
-    const px = mapX(x);
-    ctx.beginPath();
+  ctx.beginPath();
+  for (const x of xt.values) {
+    const px = Math.round(mapX(x)) + 0.5;
     ctx.moveTo(px, 0);
-    ctx.lineTo(px, canvas.height);
-    ctx.stroke();
+    ctx.lineTo(px, H);
   }
+  for (const y of yt.values) {
+    const py = Math.round(mapY(y)) + 0.5;
+    ctx.moveTo(0, py);
+    ctx.lineTo(W, py);
+  }
+  ctx.stroke();
 
-  // Neon Axes
-  ctx.strokeStyle = axisColor;
-  ctx.shadowColor = "#00f3ff";
-  ctx.shadowBlur = 6;
+  // Eixos
+  ctx.strokeStyle = colors.axis;
+  ctx.shadowColor = colors.axis;
+  ctx.shadowBlur = colors.axisGlow;
   ctx.lineWidth = 1.5;
   const zeroY = mapY(0);
-  if (zeroY >= 0 && zeroY <= canvas.height) {
+  const zeroX = mapX(0);
+  const xAxisVisible = zeroY >= 0 && zeroY <= H;
+  const yAxisVisible = zeroX >= 0 && zeroX <= W;
+  if (xAxisVisible) {
     ctx.beginPath();
     ctx.moveTo(0, zeroY);
-    ctx.lineTo(canvas.width, zeroY);
+    ctx.lineTo(W, zeroY);
     ctx.stroke();
   }
-  const zeroX = mapX(0);
-  if (zeroX >= 0 && zeroX <= canvas.width) {
+  if (yAxisVisible) {
     ctx.beginPath();
     ctx.moveTo(zeroX, 0);
-    ctx.lineTo(zeroX, canvas.height);
+    ctx.lineTo(zeroX, H);
     ctx.stroke();
   }
 
-  // Neon Curve Plot
-  ctx.strokeStyle = plotColor;
-  ctx.shadowColor = "#ff007f";
-  ctx.shadowBlur = 10;
+  // Curvas
   ctx.lineWidth = 2.5;
   curves.forEach((curve, index) => {
-    ctx.strokeStyle = ["#ff007f", "#00f3ff", "#00ff66", "#f59e0b"][index];
+    ctx.strokeStyle = colors.curves[index];
     ctx.shadowColor = ctx.strokeStyle;
+    ctx.shadowBlur = colors.curveGlow;
     ctx.beginPath();
     let prev = null;
     curve.forEach((pt) => {
@@ -188,7 +239,7 @@ function renderCanvasGraph() {
       // Do not connect a sampled gap or a jump crossing a vertical asymptote.
       if (
         !prev ||
-        Math.abs(py - mapY(prev.y)) > canvas.height * 0.45 ||
+        Math.abs(py - mapY(prev.y)) > H * 0.45 ||
         (prev.y * pt.y < 0 && Math.abs(pt.y - prev.y) > (ymax - ymin) * 0.4)
       )
         ctx.moveTo(px, py);
@@ -199,6 +250,96 @@ function renderCanvasGraph() {
   });
   ctx.shadowBlur = 0;
 
+  // Numeração dos eixos (desenhada por cima das curvas, com fundo próprio).
+  // Se o eixo estiver fora da área visível, os números ficam presos à borda.
+  const xLabelRow = !xAxisVisible
+    ? zeroY < 0
+      ? 4
+      : H - 18
+    : zeroY > H - 20
+      ? zeroY - 18
+      : zeroY + 5;
+  const axisLineY = Math.min(Math.max(zeroY, 0), H);
+  const shownX = [];
+  ctx.strokeStyle = colors.axis;
+  ctx.lineWidth = 1;
+  xt.values.forEach((x, i) => {
+    const label = xt.labels[i];
+    if (label === "0" && yAxisVisible && xAxisVisible) return;
+    const px = mapX(x);
+    const w = ctx.measureText(label).width;
+    if (px - w / 2 < 2 || px + w / 2 > W - 2) return;
+    ctx.beginPath();
+    ctx.moveTo(px, axisLineY - 3);
+    ctx.lineTo(px, axisLineY + 3);
+    ctx.stroke();
+    drawTickLabel(ctx, label, px, xLabelRow, "center", "top", colors);
+    shownX.push(label);
+  });
+
+  const yLabelWidth = Math.max(
+    ...yt.labels.map((l) => ctx.measureText(l).width),
+    0,
+  );
+  let yAlign = "left",
+    yLabelX = 5;
+  if (yAxisVisible) {
+    if (zeroX - yLabelWidth - 10 >= 0) {
+      yAlign = "right";
+      yLabelX = zeroX - 6;
+    } else {
+      yLabelX = zeroX + 6;
+    }
+  } else if (zeroX > W) {
+    yAlign = "right";
+    yLabelX = W - 5;
+  }
+  const axisLineX = Math.min(Math.max(zeroX, 0), W);
+  const shownY = [];
+  yt.values.forEach((y, i) => {
+    const label = yt.labels[i];
+    if (label === "0" && yAxisVisible && xAxisVisible) return;
+    const py = mapY(y);
+    if (py < 9 || py > H - 9) return;
+    // Evita colisão com a linha de números do eixo X.
+    if (py > xLabelRow - 9 && py < xLabelRow + 23) return;
+    ctx.beginPath();
+    ctx.moveTo(axisLineX - 3, py);
+    ctx.lineTo(axisLineX + 3, py);
+    ctx.stroke();
+    drawTickLabel(ctx, label, yLabelX, py, yAlign, "middle", colors);
+    shownY.push(label);
+  });
+
+  // Origem rotulada uma única vez.
+  if (xAxisVisible && yAxisVisible) {
+    const ox = zeroX - 6 >= 10 ? zeroX - 6 : zeroX + 6;
+    drawTickLabel(
+      ctx,
+      "0",
+      ox,
+      xLabelRow,
+      zeroX - 6 >= 10 ? "right" : "left",
+      "top",
+      colors,
+    );
+    shownX.push("0");
+    shownY.push("0");
+  }
+
+  graphState.view = {
+    xmin,
+    xmax,
+    ymin,
+    ymax,
+    width: W,
+    height: H,
+    xStep: xt.step,
+    yStep: yt.step,
+    xLabels: shownX,
+    yLabels: shownY,
+  };
+
   // Interactive Pan/Zoom
   canvas.onmousedown = (e) => {
     graphState.isDragging = true;
@@ -208,7 +349,7 @@ function renderCanvasGraph() {
   canvas.onmousemove = (e) => {
     const rect = canvas.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
-    const currentX = xmin + (mouseX / canvas.width) * (xmax - xmin);
+    const currentX = xmin + (mouseX / rect.width) * (xmax - xmin);
     try {
       const currentY = graphState.functions[0](currentX);
       document.getElementById("canvas-coords").innerText =
@@ -220,7 +361,9 @@ function renderCanvasGraph() {
 
     if (graphState.isDragging) {
       const dx = e.clientX - graphState.dragStartX;
-      const xShift = (dx / canvas.width) * (graphState.xmax - graphState.xmin);
+      const xShift =
+        (dx / canvas.getBoundingClientRect().width) *
+        (graphState.xmax - graphState.xmin);
       graphState.xmin -= xShift;
       graphState.xmax -= xShift;
       graphState.dragStartX = e.clientX;
