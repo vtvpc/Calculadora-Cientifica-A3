@@ -32,6 +32,19 @@ O processamento usa **Math.js com uma camada de validação própria**. Não há
 - Integrar HTML, CSS e JavaScript com organização por responsabilidades e testes reproduzíveis.
 - Oferecer uma interface responsiva, com temas claro/escuro e a identidade Cyberpunk Neon da equipe.
 
+## Equipe — Squad Tech Pro
+
+| Integrante | Função no projeto |
+| --- | --- |
+| Lucas Nery Miranda | Líder técnico e Dev Matriz. Manutenção da calculadora e organização da apresentação. |
+| Gustavo Henrique da Silva Cunha | Desenvolvimento da lógica do sistema (Dev Lógica). |
+| Caio de Aquino Lima | Análise do projeto (Dev Analista). |
+| Bernardo Benízio de Almeida | Desenvolvimento do núcleo do sistema (Dev Core). |
+| Lucas Felipe dos Santos Silva | Desenvolvimento do módulo de funções (Dev B). |
+| Vitor de Paiva Cleto | Desenvolvimento da versão inicial e do módulo de matrizes (Dev C). |
+
+[Repositório oficial da Calculadora Científica A3](https://github.com/vtvpc/Calculadora-Cientifica-A3)
+
 ## 🛠 Tecnologias utilizadas
 
 | Tecnologia                           | Uso real no projeto                                              |

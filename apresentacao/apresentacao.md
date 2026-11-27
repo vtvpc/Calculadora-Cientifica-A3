@@ -7,20 +7,18 @@
 
 ## Integrantes e participação
 
-Nomes e RAs conferidos na página 1 do [PDF original da primeira entrega](../docs/academico/1%C2%AA%20Entrega%20%C2%B7%20Squad%20Tech%20%C2%B7%20Matema%CC%81tica%20Computacional.pdf). O documento identifica o grupo como **Squad Tech**; a interface utiliza **Squad Tech Pro**. O RA de Bernardo foi mantido literalmente e o nome de Caio teve apenas a capitalização normalizada.
+A equipe Squad Tech Pro reúne seis integrantes. O documento acadêmico usa o nome Squad Tech. A tabela registra as funções no projeto.
 
-| Integrante | RA | Responsabilidades no projeto |
-|---|---|---|
-| Lucas Nery Miranda | 4261212244 | Correção de erros e bugs; manutenção e melhorias do código; expansão e revisão das funcionalidades matemáticas; organização da apresentação; elaboração e revisão das falas; apoio técnico e preparação da calculadora. O PDF também registra liderança técnica e “Dev Matriz”. Não participa oralmente nem da demonstração ao vivo. |
-| Gustavo Henrique da Silva Cunha | 4261214511 | Lógica do sistema, conforme a atribuição “Dev logica” na primeira entrega. O detalhamento das entregas individuais precisa de validação pelo grupo. |
-| Caio de Aquino Lima | 4261211879 | Análise do projeto, conforme a atribuição “Dev analista” na primeira entrega. O detalhamento das entregas individuais precisa de validação pelo grupo. |
-| Bernardo Benízio de Almeida | 42621691 | Núcleo do sistema, conforme a atribuição “Dev core” na primeira entrega. O detalhamento das entregas individuais precisa de validação pelo grupo. |
-| Lucas Felipe dos Santos Silva | 4261213698 | Módulo de funções, conforme a atribuição “Dev B / Modulo de funções” na primeira entrega. O detalhamento das entregas individuais precisa de validação pelo grupo. |
-| Vitor de Paiva Cleto | 4261214103 | Desenvolvimento da versão inicial que serviu de base às melhorias posteriores, conforme informação confirmada nesta revisão e os commits originais. Módulo de matrizes, conforme a atribuição “Dev C / Modulo de matrizes” no PDF. |
+| Integrante | Função no projeto |
+| --- | --- |
+| Lucas Nery Miranda | Líder técnico e Dev Matriz. Manutenção da calculadora e organização da apresentação. |
+| Gustavo Henrique da Silva Cunha | Desenvolvimento da lógica do sistema (Dev Lógica). |
+| Caio de Aquino Lima | Análise do projeto (Dev Analista). |
+| Bernardo Benízio de Almeida | Desenvolvimento do núcleo do sistema (Dev Core). |
+| Lucas Felipe dos Santos Silva | Desenvolvimento do módulo de funções (Dev B). |
+| Vitor de Paiva Cleto | Desenvolvimento da versão inicial e do módulo de matrizes (Dev C). |
 
-**Fontes e limites das atribuições:** a página 1 do PDF registra as funções originais da equipe. As responsabilidades atualizadas de Lucas Nery e a autoria da versão inicial por Vitor foram informadas nesta revisão. O histórico Git registra os primeiros envios por Vitor De Paiva (`ce781c0` e `3ca56e9`) e as correções e a documentação posteriores por Lucas Nery Miranda. As funções do PDF são atribuições documentadas, não prova de autoria de cada trecho do código atual. Para os demais integrantes, entregas individuais mais detalhadas precisam de validação pelo grupo; não foram inferidas pelo assunto apresentado.
-
-**Desenvolvimento e apresentação são responsabilidades distintas.** Todos os seis integrantes permanecem na equipe. Lucas Nery atua na parte técnica e na organização, sem fala, slide para apresentar ou participação na demonstração ao vivo. A exposição oral cabe a Gustavo, Bernardo, Caio, Lucas Felipe e Vitor. O tema de um slide não atribui automaticamente a seu apresentador o desenvolvimento da funcionalidade.
+O planejamento abaixo se refere à apresentação ao vivo. Lucas Nery atua na preparação técnica. As falas e a demonstração são divididas entre os outros cinco integrantes.
 
 ### Participação oral e demonstração
 
@@ -72,14 +70,12 @@ Os tempos incluem fala, transições e ações na tela. São uma previsão para 
 **Calculadora Científica A3 — Squad Tech Pro**<br>
 Matemática Computacional · Centro Universitário UNA · Contagem · Professor André Rodrigues.
 
-| Integrante | RA |
-|---|---|
-| Lucas Nery Miranda | 4261212244 |
-| Gustavo Henrique da Silva Cunha | 4261214511 |
-| Caio de Aquino Lima | 4261211879 |
-| Bernardo Benízio de Almeida | 42621691 |
-| Lucas Felipe dos Santos Silva | 4261213698 |
-| Vitor de Paiva Cleto | 4261214103 |
+- Lucas Nery Miranda
+- Gustavo Henrique da Silva Cunha
+- Caio de Aquino Lima
+- Bernardo Benízio de Almeida
+- Lucas Felipe dos Santos Silva
+- Vitor de Paiva Cleto
 
 **Roteiro de fala — Gustavo:**
 
@@ -266,6 +262,8 @@ Para `f(x)=x^2`:
 
 ## Slide 9 — Resultados e conclusão
 
+> O slide registra a validação da versão apresentada. Os resultados da revisão final estão no [README](../README.md#-testes-e-validação-matemática).
+
 **Responsável:** Lucas Felipe dos Santos Silva<br>
 **Tempo estimado:** 40 segundos
 
@@ -308,10 +306,8 @@ Professor André Rodrigues e turma de Matemática Computacional.<br>
 - **Slides:** 10. **Soma:** `40+35+50+50+55+25+45+100+40+15 = 455 segundos = 7min35s`.
 - **Demonstração:** `15+10+20+15+25+15 = 100 segundos`; cliques e transições estão incluídos.
 - **Participação oral:** Gustavo `40+35+15+15=105s`; Bernardo `50+25+25=100s`; Caio `50+20+10+15=95s`; Lucas Felipe `55+20+40=115s`; Vitor `25+15=40s`. Total: `455s`.
-- **Lucas Nery:** permanece na equipe com RA `4261212244`, sem fala, slide para apresentar ou participação na demonstração ao vivo. Suas responsabilidades técnicas e organizacionais são registradas separadamente.
-- **Vitor:** 40 segundos no total, menos que cada um dos demais apresentadores. Sua versão inicial é reconhecida no slide 6; a operação matricial fica no trecho breve do slide 8. Nenhuma funcionalidade adicional foi atribuída a ele sem confirmação.
-- As responsabilidades de desenvolvimento e a divisão oral são informações distintas. Para os demais integrantes, as atribuições vêm do PDF; detalhes de entregas individuais ainda dependem de validação pelo grupo.
+- **Lucas Nery:** responsável pela preparação técnica, sem fala nem operação durante a demonstração ao vivo.
+- **Vitor:** 40 segundos no total, divididos entre a versão inicial (slide 6) e a operação matricial (slide 8).
 - Ensaiar com cronômetro e campos prontos. A duração é prevista, não uma medição de apresentação já realizada. Perguntas ficam fora dos 7min35s.
 - Os exemplos correspondem ao sistema e aos testes existentes. Resultados numéricos podem variar nos últimos dígitos. Se o código mudar, conferir as demonstrações novamente.
 - Em caso de falha de projeção, usar as capturas do README como apoio e identificá-las como capturas, sem alegar execução ao vivo.
-- O PDF acadêmico permanece preservado. O histórico Git e as informações confirmadas complementam suas atribuições sem inventar autoria individual.
