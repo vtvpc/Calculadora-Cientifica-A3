@@ -12,7 +12,7 @@ Uma calculadora científica web com identidade **Cyberpunk Neon**, seis módulos
 ![Math.js](https://img.shields.io/badge/Math.js-15.2-00b8c4)
 ![Projeto acadêmico](https://img.shields.io/badge/Projeto-acadêmico-ff007f)
 
-[Funcionalidades](#-funcionalidades-matemáticas) · [Executar](#-instalação-e-execução) · [Testes](#-testes-e-validação-matemática) · [Apresentação](apresentacao/apresentacao.md)
+[Funcionalidades](#-funcionalidades-matemáticas) · [Executar](#-instalação-e-execução) · [Testes](#-testes-e-validação-matemática) · [Entrega](#-entrega-final)
 
 </div>
 
@@ -31,33 +31,6 @@ O processamento usa **Math.js com uma camada de validação própria**. Não há
 - Validar entradas, resultados conhecidos e limitações da aritmética computacional.
 - Integrar HTML, CSS e JavaScript com organização por responsabilidades e testes reproduzíveis.
 - Oferecer uma interface responsiva, com temas claro/escuro e a identidade Cyberpunk Neon da equipe.
-
-## 👥 Equipe de Desenvolvimento — Squad Tech Pro
-
-A identificação abaixo foi conferida na **página 1 do [documento acadêmico da primeira entrega](docs/academico/1%C2%AA%20Entrega%20%C2%B7%20Squad%20Tech%20%C2%B7%20Matema%CC%81tica%20Computacional.pdf)**. O PDF chama o grupo de **Squad Tech**; a interface utiliza o complemento **Pro**.
-
-| Integrante | RA | Responsabilidades no projeto |
-|---|---|---|
-| Lucas Nery Miranda | 4261212244 | Correção de erros e bugs; manutenção e melhorias do código; expansão e revisão das funcionalidades matemáticas; organização da apresentação; elaboração e revisão das falas; apoio técnico e preparação da calculadora. O PDF também registra liderança técnica e “Dev Matriz”. Não participa oralmente nem da demonstração ao vivo. |
-| Gustavo Henrique da Silva Cunha | 4261214511 | Lógica do sistema, conforme a atribuição “Dev logica” na primeira entrega. O detalhamento das entregas individuais precisa de validação pelo grupo. |
-| Caio de Aquino Lima | 4261211879 | Análise do projeto, conforme a atribuição “Dev analista” na primeira entrega. O detalhamento das entregas individuais precisa de validação pelo grupo. |
-| Bernardo Benízio de Almeida | 42621691 | Núcleo do sistema, conforme a atribuição “Dev core” na primeira entrega. O detalhamento das entregas individuais precisa de validação pelo grupo. |
-| Lucas Felipe dos Santos Silva | 4261213698 | Módulo de funções, conforme a atribuição “Dev B / Modulo de funções” na primeira entrega. O detalhamento das entregas individuais precisa de validação pelo grupo. |
-| Vitor de Paiva Cleto | 4261214103 | Desenvolvimento da versão inicial que serviu de base às melhorias posteriores, conforme informação confirmada nesta revisão e os commits originais. Módulo de matrizes, conforme a atribuição “Dev C / Modulo de matrizes” no PDF. |
-
-**Conferência dos dados:** o RA de Bernardo foi mantido literalmente como `42621691`, sem completar dígitos. O nome de Caio teve apenas a capitalização normalizada. O perfil [@vtvpc](https://github.com/vtvpc) corresponde ao autor “Vitor De Paiva” no histórico original e ao perfil público “Vitor Paiva”. Os perfis dos demais integrantes não foram confirmados.
-
-**Instituição:** Centro Universitário UNA · Contagem.<br>
-**Disciplina:** Matemática Computacional.<br>
-**Professor:** André Rodrigues.<br>
-**Líder técnico indicado no documento:** Lucas Nery Miranda.<br>
-**Primeira entrega:** 20/10/2026, conforme a capa do PDF.
-
-**Fontes e limites das atribuições:** a página 1 do PDF registra as funções originais da equipe. As responsabilidades atualizadas de Lucas Nery e a autoria da versão inicial por Vitor foram informadas nesta revisão. O histórico Git registra os primeiros envios por Vitor De Paiva (`ce781c0` e `3ca56e9`) e as correções e a documentação posteriores por Lucas Nery Miranda. As funções do PDF são atribuições documentadas, não prova de autoria de cada trecho do código atual. Para os demais integrantes, entregas individuais mais detalhadas precisam de validação pelo grupo; não foram inferidas pelo assunto apresentado.
-
-**Desenvolvimento e apresentação são responsabilidades distintas.** Todos os seis integrantes permanecem na equipe. Lucas Nery atua na parte técnica e na organização, sem fala, slide para apresentar ou participação na demonstração ao vivo. A exposição oral cabe a Gustavo, Bernardo, Caio, Lucas Felipe e Vitor. O tema de um slide não atribui automaticamente a seu apresentador o desenvolvimento da funcionalidade.
-
-O [roteiro acadêmico](apresentacao/apresentacao.md) possui **10 slides e duração prevista de 7min35s (455 segundos)**, incluindo **100 segundos de demonstração**. Vitor tem uma participação oral breve: 25 segundos no slide da versão inicial e matrizes, mais 15 segundos na demonstração. Os outros quatro apresentadores conduzem a maior parte da exposição. Os tempos incluem falas, transições e ações no sistema; perguntas ficam fora dessa previsão.
 
 ## 🛠 Tecnologias utilizadas
 
@@ -108,6 +81,64 @@ O site é estático, sem backend, cadastro ou banco de dados. As dependências d
 | **06// Histórico**         | Até 50 operações da calculadora, reutilização, limpeza e exportação JSON                                                                                        |
 
 Os painéis de estatística, equações, triângulos e bases estão dentro da aba 01. Os demais exemplos científicos, financeiros e de unidades aparecem no catálogo pesquisável. Não é necessário acrescentar centenas de botões ao teclado principal.
+
+## 📐 Módulo diferencial — Cálculo Numérico
+
+O módulo diferencial escolhido pela equipe é a aba **05// Cálculo numérico**. Ela aproxima derivadas, integrais definidas e raízes de uma função `f(x)` digitada pelo usuário. Os métodos ficam em `src/js/modules/numerical.js` (funções `derivative`, `integrate` e `rootFind`), e a ligação com a interface fica em `src/js/modules/calculus.js`. A expressão é compilada pelo motor restrito do Math.js (`MathEngine.compile`), e qualquer valor não real ou não finito interrompe o cálculo com mensagem de erro.
+
+A primeira entrega registrava **Conversão de Bases**. Na versão final, essa ferramenta permanece na aba Calculadora e o diferencial é **Cálculo Numérico**.
+
+Exemplo usado em toda esta seção e no vídeo pitch: **f(x) = x³ − 2x**. Os valores abaixo foram obtidos executando o próprio `numerical.js`.
+
+### Derivada no ponto — diferença central
+
+| Ordem | Fórmula | Passo `h` usado no código |
+| ----- | ------- | ------------------------- |
+| 1ª    | `f′(x) ≈ [f(x+h) − f(x−h)] / (2h)` | `h = ∛ε · max(1, abs(x))` |
+| 2ª    | `f″(x) ≈ [f(x+h) − 2f(x) + f(x−h)] / h²` | `h = ε^(1/4) · max(1, abs(x))` |
+
+`ε` é a precisão da máquina (`Number.EPSILON`). O passo equilibra o erro de truncamento da fórmula, proporcional a `h²`, com o erro de arredondamento, que cresce quando `h` fica pequeno demais.
+
+**Exemplo em x₀ = 2.** Com `h₁ ≈ 0,0000121109`, a primeira diferença usa `f(2 + h₁)` e `f(2 − h₁)` e resulta em `f′(2) ≈ 10,00000000`. A segunda usa as duas amostras com `h₂ = 0,000244140625` e também `f(2) = 4`, resultando em `f″(2) ≈ 12,00000000`. As referências exatas são `3x² − 2` e `6x`. O método não refina `h` nem estima o erro na interface.
+
+### Integral definida — trapézios e Simpson
+
+O intervalo `[a, b]` é dividido em `n` partes de largura `h = (b − a)/n`, com `fⱼ = f(a + j·h)`. O código exige `n` par entre 2 e 10000 nos dois métodos. O painel usa `n = 1000` sem campo para alterar esse valor. Os pesos são somados nos extremos e pontos internos antes de multiplicar por `h` ou `h/3`.
+
+| Método    | Fórmula | Pesos |
+| --------- | ------- | ----- |
+| Trapézios | `h · [½f₀ + f₁ + … + fₙ₋₁ + ½fₙ]` | ½, 1, 1, …, 1, ½ |
+| Simpson   | `(h/3) · [f₀ + 4f₁ + 2f₂ + … + 4fₙ₋₁ + fₙ]` | 1, 4, 2, …, 4, 1 (exige `n` par) |
+
+**Exemplo resolvido à mão, ∫₀³ (x³ − 2x) dx com n = 6 (h = 0,5):**
+
+| x    | 0 | 0,5    | 1  | 1,5   | 2 | 2,5    | 3  |
+| ---- | - | ------ | -- | ----- | - | ------ | -- |
+| f(x) | 0 | −0,875 | −1 | 0,375 | 4 | 10,625 | 21 |
+
+- Trapézios: `0,5 · 23,625 = 11,8125`
+- Simpson: `(0,5/3) · 67,5 = 11,25`
+- Valor exato: `81/4 − 9 = 11,25`. Simpson é exato para polinômios de grau até 3.
+
+A calculadora usa `n = 1000` e obtém `11,25000000` (Simpson) e `11,25002025` (trapézios). A malha é fixa. Se `a = b`, o código retorna zero. Quando os limites são invertidos, o sinal é invertido. Singularidades entre os pontos amostrados podem passar despercebidas.
+
+### Raízes — bisseção, Newton e secante
+
+| Método   | Iteração | Condição |
+| -------- | -------- | -------- |
+| Bisseção | `c = (a + b)/2`. Mantém a metade em que o sinal de `f` muda | exige sinais opostos após testar os extremos. A garantia pressupõe continuidade |
+| Newton   | `xₖ₊₁ = xₖ − f(xₖ)/f′(xₖ)` | começa em `b` e calcula `f′` por diferença central |
+| Secante  | `xₖ₊₁ = xₖ − f(xₖ)·(xₖ − xₖ₋₁)/(f(xₖ) − f(xₖ₋₁))` | usa `a` e `b` como pontos iniciais |
+
+O código primeiro testa `a` e `b`. Depois, aceita uma aproximação quando `|f(x)| < 10⁻¹⁰`. Rejeita iteradas não finitas e informa falta de convergência se o limite de 100 passos for atingido sem sucesso. A tolerância é do resíduo. Newton e secante podem sair da faixa inicial e falhar com denominador nulo ou pequeno.
+
+**Exemplo em [1, 2]:** a raiz é `√2 ≈ 1,41421356`.
+
+- Bisseção: `1,5 → 1,25 → 1,375 → 1,4375 → …` (29 passos e 31 avaliações de `f`, contando os extremos).
+- Newton: `2 → 1,6 → 1,44225 → 1,41501 → 1,4142142 → 1,4142136` (5 passos).
+- Secante: `1, 2 → 1,2 → 1,31507 → 1,44459 → 1,41083 → … → 1,41421356237` (8 passos).
+
+O botão **DERIVAR** completa o módulo com a derivada simbólica de `math.derivative` (por exemplo, `3 * x ^ 2 - 2`), disponível no modo RAD.
 
 ## Exemplos de operações e resultados
 
@@ -262,10 +293,11 @@ Capturas obtidas da aplicação em execução no Chromium, sem mockups ou imagen
 
 ## ✅ Testes e validação matemática
 
-Na revisão de **18/11/2026**, foram executados:
+Na revisão final de **26/11/2026**, foram executados:
 
-- **36 testes Node aprovados**, cobrindo as 15 expressões obrigatórias, precedência, domínios, expressões maliciosas, complexos, funções personalizadas, matrizes, vetores, cálculo, estatística, probabilidade, finanças, conversões, a escala numérica dos eixos do gráfico e um inventário que exige um caso de teste para **cada uma das 100 funções** liberadas pelo motor.
-- **54 testes de interface aprovados**: 27 cenários em Chromium e os mesmos 27 em Firefox. Incluem os seis módulos, todas as operações matriciais (nomes completos sem cortes no desktop e no celular), numeração dos eixos com zoom/pan/reset/PNG e tela HiDPI, auditoria automática de contraste WCAG AA do tema Light em todas as abas, acessibilidade (nomes acessíveis e foco visível), entradas inválidas em todas as ferramentas, exemplos reais do catálogo, teclado, memória, favoritos, exportações, temas, viewport móvel, armazenamento hostil/corrompido/bloqueado e recarga offline.
+- **44 testes Node aprovados**, cobrindo as 15 expressões obrigatórias, precedência, domínios, expressões maliciosas, complexos, funções personalizadas, matrizes, vetores, cálculo, estatística, probabilidade, finanças, conversões, a escala numérica dos eixos do gráfico e um inventário que exige um caso de teste para **cada uma das 100 funções** liberadas pelo motor.
+- **61 testes de interface aprovados** em Chromium e Firefox. Um cenário de favicon foi ignorado no Firefox pela própria suíte. A cobertura inclui os seis módulos, operações matriciais, gráfico e exportação PNG, contraste WCAG AA do tema claro, foco e nomes acessíveis, entradas inválidas, teclado, armazenamento e recarga offline.
+- Se o Node 26 resumir `npm test` por arquivo, use `node --test --test-isolation=none tests/*.test.cjs` para ver a contagem de casos individuais.
 - Se a porta 8000 estiver ocupada, use `PORT=8124 npm run test:browser`.
 - Verificação de ausência de erros JavaScript inesperados e respostas HTTP de erro durante os cenários de interface.
 - Cálculos com ponto flutuante comparados por tolerância; resultados inteiros e estruturas comparados com seus valores esperados.
@@ -295,7 +327,7 @@ Calculadora-Cientifica-A3/
 │   │   │   ├── graph-scale.js  # Escala e numeração dos eixos do gráfico
 │   │   │   ├── graphs.js       # Tabela, Canvas, zoom, pan e PNG
 │   │   │   ├── matrices.js     # Campos e operações matriciais
-│   │   │   ├── combinatorics.js# Combinatória com BigInt
+│   │   │   ├── combinatorics.js # Combinatória com BigInt
 │   │   │   ├── calculus.js     # Interface de cálculo e raízes
 │   │   │   └── advanced.js     # Estatística, equações, bases e triângulos
 │   │   └── ui/
@@ -311,11 +343,10 @@ Calculadora-Cientifica-A3/
 │   ├── icons/                  # Ícones PWA 192/512
 │   ├── vendor/                 # Bundle do Math.js e licença
 │   └── screenshots/            # Capturas usadas neste README
-├── docs/academico/             # Primeira entrega acadêmica (PDF)
-├── apresentacao/               # Roteiro, slides, vídeo, PDF e recursos visuais
+├── apresentacao/              # Materiais da apresentação ao vivo
 ├── tests/                      # Testes Node (node:test) e de navegador (Playwright)
 │   └── helpers/                # Auditoria de contraste WCAG
-├── scripts/build-assets.cjs    # Cópia das dependências distribuídas localmente
+├── scripts/build-assets.cjs   # Cópia das dependências distribuídas localmente
 ├── tailwind.config.cjs
 ├── playwright.config.cjs
 └── package.json / package-lock.json
@@ -337,10 +368,20 @@ O `index.html` carrega os scripts na ordem original: `assets/vendor/math.js`, `m
 - Funções BigNumber têm precisão finita de 64 algarismos, e nem todas as funções aceitam esse tipo. Operações comuns não são aritmética decimal exata.
 - O layout foi validado com viewport móvel em navegador desktop; testes em aparelhos físicos e instalação nativa da PWA permanecem pendentes.
 
+## 🎬 Entrega final
+
+A entrega final da disciplina é composta por **documento final + vídeo pitch de até 5 minutos**. O líder entrega os dois. Os demais integrantes entregam apenas o documento final. O prazo confirmado para a turma é **30/11/2026**.
+
+| Item | Conteúdo |
+| ---- | -------- |
+| Vídeo pitch | 4min44s, 1920×1080, legendado. Abertura, apresentação dos seis integrantes, demonstração da calculadora, explicação do módulo diferencial e encerramento |
+| Documento complementar (PDF) | Identificação, apresentação, escopo, funcionalidades com status, tecnologias, módulo diferencial explicado e documentação técnica |
+| Documento final | PDF de oito páginas gerado pelo construtor da disciplina, com o link definitivo do vídeo |
+
+O vídeo abre com a apresentação da equipe, demonstra as operações e explica o módulo diferencial a partir de 2:48. O vídeo e os documentos de entrega são mantidos separadamente do código, para envio pelos canais da disciplina.
+
 ## Créditos acadêmicos
 
 Projeto da **Squad Tech Pro**, identificado como **Squad Tech** no documento acadêmico, desenvolvido para a disciplina **Matemática Computacional**, no **Centro Universitário UNA · Contagem**, com professor responsável **André Rodrigues**.
-
-O [PDF da primeira entrega](docs/academico/1%C2%AA%20Entrega%20%C2%B7%20Squad%20Tech%20%C2%B7%20Matema%CC%81tica%20Computacional.pdf) permanece inalterado e é a fonte dos dados acadêmicos desta documentação. O [roteiro da apresentação](apresentacao/apresentacao.md) contém 10 slides, exemplos testados e duração prevista de 7min35s. Preserva os seis integrantes na identificação, registra as responsabilidades documentadas de todos e distribui as falas e demonstrações entre cinco apresentadores, com participação breve de Vitor e sem participação oral de Lucas Nery.
 
 Math.js, Font Awesome, Inter e JetBrains Mono são projetos de terceiros. Suas licenças estão incluídas em `assets/`. Nenhuma licença desses componentes implica uma licença nova para o código acadêmico da equipe.
