@@ -1,3 +1,25 @@
 node_modules/
 test-results/
 playwright-report/
+
+# Materiais locais da entrega acadêmica
+/video/
+/entrega/
+/Como entregar/
+/docs/academico/originais/
+/docs/academico/documento-complementar.html
+/docs/academico/preenchimento-documento-final.md
+/docs/academico/recursos/calculo-numerico.png
+/scripts/gerar-documento.cjs
+
+# Impede a inclusão futura de mídia também fora das pastas locais
+*.mp4
+*.webm
+*.mov
+*.mkv
+*.mp3
+*.wav
+*.ogg
+*.m4a
+*.srt
+*.ass
